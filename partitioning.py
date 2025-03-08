@@ -19,7 +19,7 @@ for class_name in os.listdir(train_dir):
                   if os.path.isfile(os.path.join(class_train_path, f))]
 
     # 随机选择200张图片
-    selected_images = random.sample(all_images, 200)
+    selected_images = random.sample(all_images, 100)
 
     # 创建对应的测试目录
     class_test_path = os.path.join(test_dir, class_name)
