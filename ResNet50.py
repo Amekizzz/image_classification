@@ -8,6 +8,9 @@ import matplotlib.pyplot as plt
 import os
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+epochs = 100
+batch_size = 32
+num_classes = 22
 
 # 数据预处理
 transform = transforms.Compose([
@@ -22,13 +25,13 @@ def train():
     train_dataset = datasets.ImageFolder(root='./data/train', transform=transform)
     val_dataset = datasets.ImageFolder(root='./data/val', transform=transform)
 
-    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=4)
-    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=32, shuffle=False, num_workers=4)
+    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
+    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
     # 加载 ResNet50 预训练模型
     model = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
     num_ftrs = model.fc.in_features
-    model.fc = nn.Linear(num_ftrs, 22)  # 22分类
+    model.fc = nn.Linear(num_ftrs, num_classes)  # 22分类
     model = model.to(device)
 
     # 损失函数 & 优化器
@@ -38,7 +41,7 @@ def train():
 
     scaler = torch.amp.GradScaler(device='cuda')
 
-    epochs = 100
+
     train_acc_list, val_acc_list, train_loss_list, val_loss_list = [], [], [], []
 
     for epoch in range(epochs):
