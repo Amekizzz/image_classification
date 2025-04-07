@@ -96,7 +96,7 @@ def train():
 
     # 保存模型
     os.makedirs('./models', exist_ok=True)
-    torch.save(model.state_dict(), './save_model/resnet50_satellite.pth')
+    torch.save(model.state_dict(), './save_model/ResNet_classification.pth')
 
     # 画图
     plt.figure(figsize=(10, 5))
@@ -114,8 +114,9 @@ def train():
     plt.ylabel('Accuracy')
     plt.legend()
 
-    plt.savefig('./plot/resnet50_training_curve.png')
+    plt.savefig('./plot/resnet50_curve.png')
     plt.show()
 
 if __name__ == "__main__":
     train()
+

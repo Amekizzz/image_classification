@@ -12,7 +12,7 @@ import os
 data_dir = "./data"
 batch_size = 32
 epochs = 50
-learning_rate = 0.001
+learning_rate = 0.0001
 num_classes = 22
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -88,7 +88,7 @@ def train():
               f"Val Loss: {val_loss:.4f}, Val Acc: {val_acc:.4f}")
 
     # 保存模型
-    torch.save(model.state_dict(), "save_model/vgg16_classification.pth")
+    torch.save(model.state_dict(), "./save_model/vgg16_classification.pth")
 
     # 绘制 Loss 和 Accuracy 曲线
     plt.figure(figsize=(12, 5))
@@ -108,7 +108,7 @@ def train():
     plt.legend()
     plt.title('Accuracy Curve')
 
-    plt.savefig("plot/training_curves.png")
+    plt.savefig("./plot/VGG16_curve.png")
     plt.show()
 
 if __name__ == "__main__":
