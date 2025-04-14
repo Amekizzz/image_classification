@@ -8,7 +8,6 @@ from PyQt6.QtGui import QPixmap, QImage
 from PIL import Image
 import numpy as np
 import os
-
 # 设备选择
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -49,10 +48,9 @@ class CNN_ViT_Fusion(nn.Module):
 
 # 加载模型
 num_classes = 22
-model = resnet50(weights=None)
-model.fc = nn.Linear(2048, num_classes)  # 修改分类头
+model = CNN_ViT_Fusion(num_classes)
+model.load_state_dict(torch.load("./save_model/cnn_vit_classification.pth", map_location=device))
 model.to(device)
-model.load_state_dict(torch.load("./save_model/ResNet_classification.pth", map_location=device))
 model.eval()
 
 # 图像预处理
